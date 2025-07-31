@@ -14,4 +14,6 @@ object UserConverter {
         followingCount = user.followerCount,
         followerCount = user.followerCount
     )
+
+    fun convertToBindingModel(userList: List<User>): List<UserBindingModel> = userList.map { convertToBindingModel(it) }
 }
