@@ -3,6 +3,7 @@ package com.dmm.bootcamp.yatter2025.infra.api
 
 import com.dmm.bootcamp.yatter2025.infra.api.json.UserJson
 import com.dmm.bootcamp.yatter2025.infra.api.json.CreateUserJson
+import com.dmm.bootcamp.yatter2025.infra.api.json.FollowUserJson
 import com.dmm.bootcamp.yatter2025.infra.api.json.LoginRequestBodyJson
 import com.dmm.bootcamp.yatter2025.infra.api.json.LoginResponseJson
 import com.dmm.bootcamp.yatter2025.infra.api.json.PostYweetJson
@@ -59,11 +60,29 @@ interface YatterApi {
 
   @GET("/users/{username}/following")
   suspend fun getFollowings(
-    @Path("username") usernmae: String,
+    @Path("username") username: String,
   ): List<UserJson>
 
   @GET("/users/{username}/followers")
   suspend fun getFollowers(
-    @Path("username") usernmae: String,
+    @Path("username") username: String,
   ): List<UserJson>
+
+  @POST("/users/{username}/follow")
+  suspend fun postFollow(
+    @Header("Authentication") token: String,
+    @Body username: String
+  ): FollowUserJson
+
+  @POST("/users/{username}/unfollow")
+  suspend fun postUnFollow(
+    @Header("Authentication") token: String,
+    @Body username: String
+  ): FollowUserJson
+
+  @GET("/users/relationships")
+  suspend fun getRelationships(
+    @Header("Authentication") token: String,
+    @Body username: String
+  ): List<FollowUserJson>
 }

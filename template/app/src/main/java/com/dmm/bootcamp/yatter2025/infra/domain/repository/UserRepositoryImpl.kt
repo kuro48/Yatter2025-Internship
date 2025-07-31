@@ -1,6 +1,7 @@
 package com.dmm.bootcamp.yatter2025.infra.domain.repository
 
 import android.util.Log
+import com.dmm.bootcamp.yatter2025.auth.TokenProvider
 import com.dmm.bootcamp.yatter2025.domain.model.User
 import com.dmm.bootcamp.yatter2025.domain.model.Password
 import com.dmm.bootcamp.yatter2025.domain.model.Username
@@ -18,6 +19,7 @@ import java.net.URL
 class UserRepositoryImpl(
   private val yatterApi: YatterApi,
   private val getLoginUsernameService: GetLoginUsernameService,
+  private val tokenProvider: TokenProvider,
 ) : UserRepository {
   private val userCache: MutableMap<Username, User> = mutableMapOf()
 
@@ -84,10 +86,16 @@ class UserRepositoryImpl(
   }
 
   override suspend fun follow(me: User, username: Username) {
-    TODO("Not yet implemented")
+    yatterApi.postFollow(
+      tokenProvider.provide(),
+      username.value
+    )
   }
 
   override suspend fun unfollow(me: User, username: Username) {
-    TODO("Not yet implemented")
+    yatterApi.postUnFollow(
+      tokenProvider.provide(),
+      username.value
+    )
   }
 }
