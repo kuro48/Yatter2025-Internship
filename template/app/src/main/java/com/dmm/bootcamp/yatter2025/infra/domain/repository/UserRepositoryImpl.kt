@@ -73,12 +73,14 @@ class UserRepositoryImpl(
     TODO("Not yet implemented")
   }
 
-  override suspend fun followings(): List<User> {
-    TODO("Not yet implemented")
+  override suspend fun followings(me: User): List<User> {
+    val followings = yatterApi.getFollowings(me.username.value)
+    return  followings.map{ UserConverter.convertToDomainModel(it) }
   }
 
-  override suspend fun followers(): List<User> {
-    TODO("Not yet implemented")
+  override suspend fun followers(me: User): List<User> {
+    val followings = yatterApi.getFollowers(me.username.value)
+    return  followings.map{ UserConverter.convertToDomainModel(it) }
   }
 
   override suspend fun follow(me: User, username: Username) {

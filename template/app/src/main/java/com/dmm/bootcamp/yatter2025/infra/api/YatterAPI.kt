@@ -1,5 +1,6 @@
 package com.dmm.bootcamp.yatter2025.infra.api
 
+
 import com.dmm.bootcamp.yatter2025.infra.api.json.UserJson
 import com.dmm.bootcamp.yatter2025.infra.api.json.CreateUserJson
 import com.dmm.bootcamp.yatter2025.infra.api.json.LoginRequestBodyJson
@@ -55,4 +56,14 @@ interface YatterApi {
   suspend fun getYweetById(
     @Path("id") yweetId: String
   ): YweetJson
+
+  @GET("/users/{username}/following")
+  suspend fun getFollowings(
+    @Path("username") usernmae: String,
+  ): List<UserJson>
+
+  @GET("/users/{username}/followers")
+  suspend fun getFollowers(
+    @Path("username") usernmae: String,
+  ): List<UserJson>
 }
