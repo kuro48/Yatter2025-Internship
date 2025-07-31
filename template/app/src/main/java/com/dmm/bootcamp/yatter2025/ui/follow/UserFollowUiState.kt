@@ -1,9 +1,9 @@
 package com.dmm.bootcamp.yatter2025.ui.follow
 
-import com.dmm.bootcamp.yatter2025.ui.follow.bindingmodel.UserFollowBindingModel
+import com.dmm.bootcamp.yatter2025.ui.profile.bindinmodel.UserBindingModel
 
 data class UserFollowUiState(
-    val followingList: List<UserFollowBindingModel>,
+    val followingList: List<UserBindingModel>,
     val isLoading: Boolean,
     val isRefreshing: Boolean
 ) {
