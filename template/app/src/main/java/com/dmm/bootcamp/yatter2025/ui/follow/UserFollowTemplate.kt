@@ -7,10 +7,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
@@ -31,6 +35,7 @@ fun UserFollowTemplate(
     onClickFollow: () -> Unit,
     onClickUser: (username: String) -> Unit,
     onRefresh: () -> Unit,
+    onClickNavIcon: () -> Unit,
 ) {
     val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
     Scaffold(
@@ -38,6 +43,14 @@ fun UserFollowTemplate(
             TopAppBar(
                 title = {
                     Text("フォロー一覧")
+                },
+                navigationIcon = {
+                    IconButton(onClick = onClickNavIcon) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "戻る"
+                        )
+                    }
                 }
             )
         },
@@ -115,6 +128,7 @@ fun UserFollowTemplatePreview() {
                 onRefresh = {},
                 isRefreshing = false,
                 isLoading = false,
+                onClickNavIcon = {}
             )
         }
     }

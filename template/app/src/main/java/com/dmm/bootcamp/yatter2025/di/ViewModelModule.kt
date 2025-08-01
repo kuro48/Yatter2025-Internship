@@ -1,6 +1,7 @@
 package com.dmm.bootcamp.yatter2025.di
 
 import com.dmm.bootcamp.yatter2025.ui.MainViewModel
+import com.dmm.bootcamp.yatter2025.ui.follow.UserFollowViewModel
 import com.dmm.bootcamp.yatter2025.ui.login.LoginViewModel
 import com.dmm.bootcamp.yatter2025.ui.post.PostViewModel
 import com.dmm.bootcamp.yatter2025.ui.profile.UserProfileViewModel
@@ -20,4 +21,5 @@ internal val viewModelModule = module {
   viewModel { HomeTimelineViewModel(get())}
   viewModel { PostDetailViewModel(get()) }
   viewModel { UserProfileViewModel(get()) }
+  viewModel { UserFollowViewModel(get(), get()) }
 }

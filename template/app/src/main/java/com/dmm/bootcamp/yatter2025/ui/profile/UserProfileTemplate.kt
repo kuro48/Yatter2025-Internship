@@ -1,5 +1,6 @@
 package com.dmm.bootcamp.yatter2025.ui.profile
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,6 +43,7 @@ fun UserProfileTemplate(
     isLoading: Boolean,
     isRefreshing: Boolean,
     onClickNavIcon: () -> Unit,
+    onClickFollowings: (username: String) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -131,7 +133,10 @@ fun UserProfileTemplate(
                                 append("フォロー中")
                             }
                         },
-
+                        modifier = Modifier
+                            .clickable {
+                                onClickFollowings(userBindingModel.username)
+                            }
                     )
                     Text(
                         text = buildAnnotatedString {
@@ -180,6 +185,7 @@ fun UserProfileTemplatePreview() {
                 isLoading = false,
                 isRefreshing = false,
                 onClickNavIcon = {},
+                onClickFollowings = {}
             )
         }
     }

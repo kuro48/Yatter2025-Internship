@@ -7,10 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.dmm.bootcamp.yatter2025.ui.LocalNavController
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun UserFollowPage(
-    userFollowViewModel: UserFollowViewModel
+    userFollowViewModel: UserFollowViewModel = getViewModel(),
+    username: String
 ) {
     val uiState by userFollowViewModel.uiState.collectAsState()
     val destination by userFollowViewModel.destination.collectAsState()
@@ -34,6 +36,7 @@ fun UserFollowPage(
         isRefreshing = uiState.isRefreshing,
         onClickFollow = userFollowViewModel::onClickFollow,
         onClickUser = userFollowViewModel::onClickUser,
-        onRefresh = userFollowViewModel::onRefresh
+        onRefresh = userFollowViewModel::onRefresh,
+        onClickNavIcon = userFollowViewModel::onClickNavIcon
     )
 }

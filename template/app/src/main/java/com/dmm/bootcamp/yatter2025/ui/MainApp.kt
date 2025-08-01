@@ -9,6 +9,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.dmm.bootcamp.yatter2025.ui.follow.UserFollowDestination
 import com.dmm.bootcamp.yatter2025.ui.login.LoginDestination
 import com.dmm.bootcamp.yatter2025.ui.post.PostDestination
 import com.dmm.bootcamp.yatter2025.ui.profile.UserProfileDestination
@@ -50,6 +51,7 @@ fun MainApp(
                 HomeTimelineDestination.createNode(this)
                 PostDetailDestination.createNode(this)
                 UserProfileDestination.createNode(this)
+                UserFollowDestination.createNode(this)
             }
         }
     }
