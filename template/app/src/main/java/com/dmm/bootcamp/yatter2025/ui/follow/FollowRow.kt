@@ -38,14 +38,14 @@ import com.dmm.bootcamp.yatter2025.ui.theme.Yatter2025Theme
 fun FollowRow(
     userBindingModel: UserBindingModel,
     relationshipBindingModel: RelationshipBindingModel,
-    onClickUser: () -> Unit,
+    onClickUser: (username: String) -> Unit,
     onClickFollow: () -> Unit,
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .padding( 4.dp)
         .clickable {
-            onClickFollow()
+            onClickUser(userBindingModel.username)
         }
     ) {
         AsyncImage(

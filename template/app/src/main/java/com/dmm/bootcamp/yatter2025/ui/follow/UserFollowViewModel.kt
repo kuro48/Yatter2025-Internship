@@ -60,12 +60,12 @@ class UserFollowViewModel(
         }
     }
 
-    fun onClickFollow(username: String) {
+    fun onClickFollow() {
         viewModelScope.launch {
             val me = getLoginUserService.execute()
             _uiState.update { it.copy(isLoading = true) }
             if (me != null) {
-                userRepository.follow(me, Username(username))
+//                userRepository.follow(me, Username())
             }
             _uiState.update { it.copy(isLoading = false) }
         }
