@@ -86,7 +86,7 @@ class UserRepositoryImpl(
   }
 
   override suspend fun follow(me: User, username: Username) {
-    yatterApi.postFollow(
+    val follow = yatterApi.postFollow(
       tokenProvider.provide(),
       username.value
     )

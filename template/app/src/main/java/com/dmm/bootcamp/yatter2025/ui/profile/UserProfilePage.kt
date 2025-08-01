@@ -34,6 +34,10 @@ fun UserProfilePage(
         isRefreshing = uiState.isRefreshing,
         onClickNavIcon = userProfileViewModel::onClickNavIcon,
         onClickFollowings = userProfileViewModel::onClickFollowings,
-        onClickFollowers = userProfileViewModel::onClickFollowers
+        onClickFollowers = userProfileViewModel::onClickFollowers,
+        onRefresh = userProfileViewModel::onRefresh,
+        relationshipBindingModel = uiState.relationshipBindingModel,
+        onClickFollow = userProfileViewModel::onClickFollow,
+        onClickUnFollow = userProfileViewModel::onClickUnFollow
     )
 }

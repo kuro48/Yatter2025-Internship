@@ -6,6 +6,7 @@ import com.dmm.bootcamp.yatter2025.common.navigation.Destination
 import com.dmm.bootcamp.yatter2025.common.navigation.PopBackDestination
 import com.dmm.bootcamp.yatter2025.domain.model.Username
 import com.dmm.bootcamp.yatter2025.domain.repository.UserRepository
+import com.dmm.bootcamp.yatter2025.domain.service.GetLoginUserService
 import com.dmm.bootcamp.yatter2025.ui.follow.UserFollowDestination
 import com.dmm.bootcamp.yatter2025.ui.follower.UserFollowerDestination
 import com.dmm.bootcamp.yatter2025.ui.profile.bindinmodel.UserConverter
@@ -16,7 +17,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class UserProfileViewModel(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val getLoginUserService: GetLoginUserService
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<UserProfileUiState> = MutableStateFlow(UserProfileUiState.empty())
     val uiState: StateFlow<UserProfileUiState> = _uiState.asStateFlow()
@@ -47,10 +49,32 @@ class UserProfileViewModel(
         }
     }
 
-    fun onRefresh(username: String) {
+    fun onRefresh() {
         viewModelScope.launch {
             _uiState.update { it.copy( isRefreshing = true ) }
-            fetchUserProfile(username)
+            fetchUserProfile(uiState.value.userBindingModel.username)
+            _uiState.update { it.copy( isRefreshing = false )  }
+        }
+    }
+
+    fun onClickFollow() {
+        viewModelScope.launch {
+            _uiState.update { it.copy( isRefreshing = true ) }
+            val me = getLoginUserService.execute()
+            if (me != null) {
+            userRepository.follow(me, Username(uiState.value.userBindingModel.username))
+            }
+            _uiState.update { it.copy( isRefreshing = false )  }
+        }
+    }
+
+    fun onClickUnFollow() {
+        viewModelScope.launch {
+            _uiState.update { it.copy( isRefreshing = true ) }
+            val me = getLoginUserService.execute()
+            if (me != null) {
+                userRepository.unfollow(me, Username(uiState.value.userBindingModel.username))
+            }
             _uiState.update { it.copy( isRefreshing = false )  }
         }
     }

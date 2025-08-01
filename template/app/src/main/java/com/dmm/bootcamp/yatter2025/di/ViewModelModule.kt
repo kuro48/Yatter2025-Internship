@@ -21,7 +21,7 @@ internal val viewModelModule = module {
   viewModel { LoginViewModel(get()) }
   viewModel { HomeTimelineViewModel(get())}
   viewModel { PostDetailViewModel(get()) }
-  viewModel { UserProfileViewModel(get()) }
+  viewModel { UserProfileViewModel(get(), get()) }
   viewModel { UserFollowViewModel(get(), get()) }
   viewModel { UserFollowerViewModel(get(), get()) }
 }

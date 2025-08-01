@@ -71,18 +71,18 @@ interface YatterApi {
   @POST("users/{username}/follow")
   suspend fun postFollow(
     @Header("Authentication") token: String,
-    @Body username: String
+    @Path("username") username: String,
   ): FollowUserJson
 
   @POST("users/{username}/unfollow")
   suspend fun postUnFollow(
     @Header("Authentication") token: String,
-    @Body username: String
+    @Path("username") username: String
   ): FollowUserJson
 
   @GET("users/relationships")
   suspend fun getRelationships(
     @Header("Authentication") token: String,
-    @Body username: String
+    @Query("username") username:String
   ): List<FollowUserJson>
 }
