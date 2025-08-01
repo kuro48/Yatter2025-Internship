@@ -7,6 +7,7 @@ import com.dmm.bootcamp.yatter2025.common.navigation.PopBackDestination
 import com.dmm.bootcamp.yatter2025.domain.model.Username
 import com.dmm.bootcamp.yatter2025.domain.repository.UserRepository
 import com.dmm.bootcamp.yatter2025.ui.follow.UserFollowDestination
+import com.dmm.bootcamp.yatter2025.ui.follower.UserFollowerDestination
 import com.dmm.bootcamp.yatter2025.ui.profile.bindinmodel.UserConverter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -56,6 +57,9 @@ class UserProfileViewModel(
 
     fun onClickFollowings(username: String) {
         _destination.value = UserFollowDestination(username)
+    }
+    fun onClickFollowers(username: String) {
+        _destination.value = UserFollowerDestination(username)
     }
 
     fun onCompleteNavigation() {

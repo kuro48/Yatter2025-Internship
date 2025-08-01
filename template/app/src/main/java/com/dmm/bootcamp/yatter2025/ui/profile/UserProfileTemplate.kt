@@ -44,6 +44,7 @@ fun UserProfileTemplate(
     isRefreshing: Boolean,
     onClickNavIcon: () -> Unit,
     onClickFollowings: (username: String) -> Unit,
+    onClickFollowers: (username: String) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -159,6 +160,9 @@ fun UserProfileTemplate(
                         },
                         modifier = Modifier
                             .padding(start = 8.dp)
+                            .clickable {
+                                onClickFollowers(userBindingModel.username)
+                            }
                     )
                 }
             }
@@ -185,7 +189,8 @@ fun UserProfileTemplatePreview() {
                 isLoading = false,
                 isRefreshing = false,
                 onClickNavIcon = {},
-                onClickFollowings = {}
+                onClickFollowings = {},
+                onClickFollowers = {}
             )
         }
     }

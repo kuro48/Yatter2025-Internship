@@ -33,6 +33,7 @@ fun UserProfilePage(
         isLoading = uiState.isLoading,
         isRefreshing = uiState.isRefreshing,
         onClickNavIcon = userProfileViewModel::onClickNavIcon,
-        onClickFollowings = userProfileViewModel::onClickFollowings
+        onClickFollowings = userProfileViewModel::onClickFollowings,
+        onClickFollowers = userProfileViewModel::onClickFollowers
     )
 }

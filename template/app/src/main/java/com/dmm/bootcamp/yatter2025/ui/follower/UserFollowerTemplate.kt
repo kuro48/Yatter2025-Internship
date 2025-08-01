@@ -1,0 +1,136 @@
+package com.dmm.bootcamp.yatter2025.ui.follower
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.dmm.bootcamp.yatter2025.ui.follow.FollowRow
+import com.dmm.bootcamp.yatter2025.ui.profile.bindinmodel.RelationshipBindingModel
+import com.dmm.bootcamp.yatter2025.ui.profile.bindinmodel.UserBindingModel
+import com.dmm.bootcamp.yatter2025.ui.theme.Yatter2025Theme
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun UserFollowerTemplate(
+    followers: List<UserBindingModel>,
+    relationship: RelationshipBindingModel,
+    isLoading: Boolean,
+    isRefreshing: Boolean,
+    onClickFollow: () -> Unit,
+    onClickUser: (username: String) -> Unit,
+    onRefresh: () -> Unit,
+    onClickNavIcon: () -> Unit,
+) {
+    val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("フォロワー一覧")
+                },
+                navigationIcon = {
+                    IconButton(onClick = onClickNavIcon) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "戻る"
+                        )
+                    }
+                }
+            )
+        },
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            LazyColumn {
+                items(followers) { item ->
+                    FollowRow(
+                        userBindingModel = item,
+                        relationshipBindingModel = relationship,
+                        onClickFollow = onClickFollow,
+                        onClickUser = onClickUser,
+                    )
+                }
+            }
+            PullRefreshIndicator(
+                refreshing = isRefreshing,
+                state = pullRefreshState,
+                modifier = Modifier.align(Alignment.TopCenter)
+            )
+
+            if(isLoading) {
+             CircularProgressIndicator()
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun UserFollowerTemplatePreview() {
+    Yatter2025Theme {
+        Surface {
+            UserFollowerTemplate(
+                followers = listOf(
+                    UserBindingModel(
+                        username = "username",
+                        displayName = "displayname",
+                        note = "note",
+                        avatar = "https://avatars.githubusercontent.com/u/19385268?v=4",
+                        header = "https://avatars.githubusercontent.com/u/19385268?v=4",
+                        followingCount = 0,
+                        followerCount = 0,
+                    ),
+                    UserBindingModel(
+                        username = "username",
+                        displayName = "displayname",
+                        note = "note",
+                        avatar = "https://avatars.githubusercontent.com/u/19385268?v=4",
+                        header = "https://avatars.githubusercontent.com/u/19385268?v=4",
+                        followingCount = 0,
+                        followerCount = 0,
+                    ),
+                    UserBindingModel(
+                        username = "username",
+                        displayName = "displayname",
+                        note = "note",
+                        avatar = "https://avatars.githubusercontent.com/u/19385268?v=4",
+                        header = "https://avatars.githubusercontent.com/u/19385268?v=4",
+                        followingCount = 0,
+                        followerCount = 0,
+                    )
+                ),
+                relationship = RelationshipBindingModel(
+                    target = "username",
+                    following = true,
+                    followedBy = false,
+                ),
+                onClickFollow = {},
+                onClickUser = {},
+                onRefresh = {},
+                isRefreshing = false,
+                isLoading = false,
+                onClickNavIcon = {}
+            )
+        }
+    }
+}
