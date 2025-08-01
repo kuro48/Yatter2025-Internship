@@ -15,9 +15,8 @@ import com.dmm.bootcamp.yatter2025.ui.login.LoginDestination
 import com.dmm.bootcamp.yatter2025.ui.post.PostDestination
 import com.dmm.bootcamp.yatter2025.ui.profile.UserProfileDestination
 import com.dmm.bootcamp.yatter2025.ui.register.RegisterUserDestination
+import com.dmm.bootcamp.yatter2025.ui.timeline.TimelineDestination
 import com.dmm.bootcamp.yatter2025.ui.timeline.postdetail.PostDetailDestination
-import com.dmm.bootcamp.yatter2025.ui.timeline.hometimeline.HomeTimelineDestination
-import com.dmm.bootcamp.yatter2025.ui.timeline.publictimeline.PublicTimelineDestination
 import org.koin.androidx.compose.getViewModel
 
 val LocalNavController = compositionLocalOf<NavController> {
@@ -47,13 +46,12 @@ fun MainApp(
             ) {
                 LoginDestination.createNode(this)
                 RegisterUserDestination.createNode(this)
-                PublicTimelineDestination.createNode(this)
                 PostDestination.createNode(this)
-                HomeTimelineDestination.createNode(this)
                 PostDetailDestination.createNode(this)
                 UserProfileDestination.createNode(this)
                 UserFollowDestination.createNode(this)
                 UserFollowerDestination.createNode(this)
+                TimelineDestination.createNode(this)
             }
         }
     }
