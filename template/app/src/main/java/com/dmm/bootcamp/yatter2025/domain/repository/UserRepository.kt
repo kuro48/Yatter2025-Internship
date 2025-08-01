@@ -23,8 +23,8 @@ interface UserRepository {
     newHeader: URL?
   ): User
 
-  suspend fun followings(): List<User>
-  suspend fun followers(): List<User>
+  suspend fun followings(username: String): List<User>
+  suspend fun followers(username: String): List<User>
 
   suspend fun follow(me: User, username: Username)
   suspend fun unfollow(me: User, username: Username)

@@ -15,7 +15,7 @@ import com.dmm.bootcamp.yatter2025.infra.domain.service.LoginServiceImpl
 import org.koin.dsl.module
 
 internal val domainImplModule = module {
-  single<UserRepository> { UserRepositoryImpl(get(), get()) }
+  single<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
   single<YweetRepository> { YweetRepositoryImpl(get(), get()) }
 
   factory<GetLoginUserService> { GetLoginUserServiceImpl(get()) }
