@@ -1,5 +1,6 @@
 package com.dmm.bootcamp.yatter2025.ui.follow
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
@@ -96,13 +98,25 @@ fun FollowRow(
                         )
                     }
                 }
-                Button(
-                    onClick = onClickFollow,
-                    shape = RoundedCornerShape(50),
-                ) {
-                    if (relationshipBindingModel.following) {
-                        Text(text = "フォロー中")
-                    } else {
+                if (relationshipBindingModel.following) {
+                    Button(
+                        onClick = onClickFollow,
+                        shape = RoundedCornerShape(50),
+                        border = BorderStroke(3.dp, MaterialTheme.colors.primary),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = MaterialTheme.colors.primary
+                        )
+                    ) {
+                        Text(
+                            text = "フォロー中",
+                            color = MaterialTheme.colors.primary
+                        )
+                    }
+                } else {
+                    Button(
+                        onClick = onClickFollow,
+                        shape = RoundedCornerShape(50),
+                    ) {
                         Text(text = "フォロー")
                     }
                 }
@@ -132,7 +146,7 @@ fun FollowRowPreview() {
                 ),
                 relationshipBindingModel = RelationshipBindingModel(
                     target = "KURO__48",
-                    following = true,
+                    following = false,
                     followedBy = false,
                 ),
                 onClickFollow = {},
