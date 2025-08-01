@@ -4,6 +4,7 @@ import com.dmm.bootcamp.yatter2025.ui.profile.bindinmodel.RelationshipBindingMod
 import com.dmm.bootcamp.yatter2025.ui.profile.bindinmodel.UserBindingModel
 
 data class UserFollowerUiState(
+    val targetUser: UserBindingModel,
     val followerList: List<UserBindingModel>,
     val relationship: RelationshipBindingModel,
     val isLoading: Boolean,
@@ -11,6 +12,15 @@ data class UserFollowerUiState(
 ) {
     companion object {
         fun empty(): UserFollowerUiState = UserFollowerUiState(
+            targetUser = UserBindingModel(
+                username = "",
+                displayName = "",
+                note = "",
+                avatar = "",
+                header = "",
+                followingCount = 0,
+                followerCount = 0,
+            ),
             followerList = emptyList(),
             relationship = RelationshipBindingModel(
                 target = "",

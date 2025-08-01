@@ -26,7 +26,7 @@ fun UserFollowerPage(
     }
 
     LifecycleEventEffect(Lifecycle.Event.ON_CREATE) {
-        userFollowerViewModel.onCreate()
+        userFollowerViewModel.onCreate(username)
     }
 
     UserFollowerTemplate(

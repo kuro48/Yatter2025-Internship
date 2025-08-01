@@ -26,9 +26,9 @@ class UserFollowerViewModel(
     private val _destination = MutableStateFlow<Destination?>(null)
     val destination: StateFlow<Destination?> = _destination.asStateFlow()
 
-    private fun fetchFollowers(me: User) {
+    private fun fetchFollowers(username: String) {
         viewModelScope.launch {
-            val followers = userRepository.followers(me)
+            val followers = userRepository.followers(username)
             _uiState.update {
                 it.copy(
                     followerList = UserConverter.convertToBindingModel(followers)
@@ -37,12 +37,17 @@ class UserFollowerViewModel(
         }
     }
 
-    fun onCreate() {
+    fun onCreate(username: String) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
-            val me = getLoginUserService.execute()
-            if (me != null) {
-                fetchFollowers(me)
+            val targetUser = userRepository.findByUsername(Username(username),true)
+            if (targetUser != null) {
+                _uiState.update {
+                    it.copy(
+                        targetUser = UserConverter.convertToBindingModel(targetUser)
+                    )
+                }
+                fetchFollowers(targetUser.username.value)
             }
             _uiState.update { it.copy(isLoading = false) }
         }
@@ -51,10 +56,7 @@ class UserFollowerViewModel(
     fun onRefresh() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
-            val me = getLoginUserService.execute()
-            if (me != null) {
-                fetchFollowers(me)
-            }
+            fetchFollowers(uiState.value.targetUser.username)
             _uiState.update { it.copy(isLoading = false) }
         }
     }
