@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -25,10 +26,11 @@ import com.dmm.bootcamp.yatter2025.ui.theme.Yatter2025Theme
 fun UserFollowTemplate(
     followings: List<UserBindingModel>,
     relationship: RelationshipBindingModel,
-    onClickFollow: () -> Unit,
-    onClickUser: () -> Unit,
-    onRefresh: () -> Unit,
+    isLoading: Boolean,
     isRefreshing: Boolean,
+    onClickFollow: () -> Unit,
+    onClickUser: (username: String) -> Unit,
+    onRefresh: () -> Unit,
 ) {
     val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
     Scaffold(
@@ -45,22 +47,26 @@ fun UserFollowTemplate(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-        LazyColumn {
-            items(followings) { item ->
-                FollowRow(
-                    userBindingModel = item,
-                    relationshipBindingModel = relationship,
-                    onClickFollow = {},
-                    onClickUser = {},
-                )
+            LazyColumn {
+                items(followings) { item ->
+                    FollowRow(
+                        userBindingModel = item,
+                        relationshipBindingModel = relationship,
+                        onClickFollow = onClickFollow,
+                        onClickUser = onClickUser,
+                    )
+                }
             }
-        }
             PullRefreshIndicator(
                 refreshing = isRefreshing,
                 state = pullRefreshState,
                 modifier = Modifier.align(Alignment.TopCenter)
             )
-    }
+
+            if(isLoading) {
+             CircularProgressIndicator()
+            }
+        }
     }
 }
 
@@ -108,6 +114,7 @@ fun UserFollowTemplatePreview() {
                 onClickUser = {},
                 onRefresh = {},
                 isRefreshing = false,
+                isLoading = false,
             )
         }
     }
